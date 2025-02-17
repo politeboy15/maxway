@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog\base.html' %}
+{% block title %}IT-NEWS{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <h1>IT-NEWS</h1>
+    {% for post in posts %}
+        <div calss="post">
+            <h2>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </h2>
+            <p class="date">
+                Published: {{ post.publish }} by {{ post.author }}
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}
