@@ -22,4 +22,8 @@ def post_detail(request, year, month, day, slug):
         if comment_form.is_valid():
             new_comment=comment_form.save(commit=False)
             new_comment.post=post
+            new_comment.save
+    else:
+        comment_form=CommentForm()
+
     return render(request, 'blog/post/details.html', {'post':post})
