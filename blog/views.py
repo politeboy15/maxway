@@ -2,6 +2,7 @@ from .models import Post
 from .forms import *
 from django.shortcuts import get_object_or_404,render
 from django.views.generic import ListView
+from django.core.mail import send_mail
 
 
 class PostListView(ListView):
@@ -26,4 +27,29 @@ def post_detail(request, year, month, day, slug):
     else:
         comment_form=CommentForm()
 
-    return render(request, 'blog/post/details.html', {'post':post})
+    return render(request, 'blog/post/details.html', {'post':post,
+                                                      'comments':comments,
+                                                      'new_comment':new_comment,
+                                                      'comment_form':comment_form,  })
+
+
+def post_share(request, post_id):
+    post=get_object_or_404(Post,id=post_id,status="published")
+    sent=False
+
+    if request.method == "POST":
+        form=EmailPostForm(request.Post)
+        if form.is_valid():
+            cd=form.cleaned_data
+            print(cd)
+            post_url=request.build_absolute_uri(post.get_absolute_url())
+            title=f"{cd['name']} sizga {post.title}ni oqishni taklif etdi!"
+            message=f"Read {post.title} at {post.url}\n\n" \
+                    f"{cd['name']}\'s comments: {cd['comments']}"
+            send_mail(title,message, 'muhammad14toxtasinov@gmail.com', [cd['to']], fail_silently=False)
+            sent=True
+    else:
+        form=EmailPostForm()
+    return render(request, 'blog/post/share.html', {'post':post,
+                                                    'form':form,
+                                                    'sent':sent,})
