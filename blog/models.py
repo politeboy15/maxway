@@ -38,7 +38,3 @@ class Post(models.Model):
                                                 self.publish.month,
                                                 self.publish.day,
                                                 self.slug])
-
-
-posts = Post.objects.filter(status="published")
-p_posts=Post.published.all()
