@@ -1,8 +1,8 @@
-{% extends "blog\base.html" %}
+{% extends "blog/base.html" %}
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <h1>post.title</h1>
+    <h1>{{ post.title }}</h1>
     <p class="date">
         Published: {{ post.publish }} by {{ post.author }}
     </p>
@@ -12,9 +12,13 @@
         </a>
     </p>
 
+    <div class="post-body">
+        {{ post.body|linebreaks }}
+    </div>
+
     {% with comments.count as total_comments %}
     <h2>
-        {{ total_comments }} comment{{total_comments|pluralize}}
+        {{ total_comments }} comment{{ total_comments|pluralize }}
     </h2>
     {% endwith %}
 
@@ -24,11 +28,12 @@
             Comment {{ forloop.counter }} by {{ comment.name }}
             {{ comment.created }}
         </p>
-        {{ comment.body|linebreaks }}
+        <div style="color: white;">
+            {{ comment.body|linebreaks }}
+        </div>
     </div>
-    {{ post.body|linebreaks }}
     {% empty %}
-        <p>There no comments yet</p>
+        <p>There are no comments yet</p>
     {% endfor %}
 
     {% if new_comment %}
