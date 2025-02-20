@@ -3,6 +3,7 @@ from .forms import *
 from django.shortcuts import get_object_or_404,render
 from django.views.generic import ListView
 from django.core.mail import send_mail
+from django.conf import settings
 
 
 class PostListView(ListView):
@@ -19,11 +20,11 @@ def post_detail(request, year, month, day, slug):
     new_comment=None
 
     if request.method == "POST":
-        comment_form = CommentForm(data_request="POST")
+        comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             new_comment=comment_form.save(commit=False)
             new_comment.post=post
-            new_comment.save
+            new_comment.save()
     else:
         comment_form=CommentForm()
 
@@ -38,15 +39,15 @@ def post_share(request, post_id):
     sent=False
 
     if request.method == "POST":
-        form=EmailPostForm(request.Post)
+        form=EmailPostForm(request.POST)
         if form.is_valid():
             cd=form.cleaned_data
             print(cd)
             post_url=request.build_absolute_uri(post.get_absolute_url())
             title=f"{cd['name']} sizga {post.title}ni oqishni taklif etdi!"
-            message=f"Read {post.title} at {post.url}\n\n" \
+            message=f"Read {post.title} at {post_url}\n\n" \
                     f"{cd['name']}\'s comments: {cd['comments']}"
-            send_mail(title,message, 'muhammad14toxtasinov@gmail.com', [cd['to']], fail_silently=False)
+            send_mail(title,message, settings.DEFAULT_FROM_EMAIL, [cd['to']], fail_silently=False)
             sent=True
     else:
         form=EmailPostForm()

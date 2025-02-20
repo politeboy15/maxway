@@ -67,7 +67,7 @@ input, textarea {
     border: 0;
     padding: 6px 10px;
     font-size: 12px;
-    color: white;
+    color: black;
 }
 
 input[type=submit] {
@@ -108,4 +108,7 @@ input[type=submit] {
 }
 .post:hover {
     background-color: #51515b;
+}
+label {
+    color:black;
 }

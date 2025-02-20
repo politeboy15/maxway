@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--gx#v6ubb#-jemtv=m7_mhmokh69-pzhbw5_4(hmso-r&3de7#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '192.168.100.5']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -132,9 +132,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Куда собирать
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backend.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'muhammad14toxtasinov@gmail.com'
-EMAIL_HOST_PASSWORD = "20091209SMT!"
+DEFAULT_FROM_EMAIL='smtp@mailtrap.io'
+EMAIL_HOST = 'live.smtp.mailtrap.io'
 EMAIL_PORT = 587
+EMAIL_HOST_USER = 'api'  # или попробуй 'smtp@mailtrap.io', если не работает
+EMAIL_HOST_PASSWORD = '948013e1ab915b7f04e65e8f2d554da1'  # Подставь пароль из Mailtrap
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False  # SSL не нужен, только TLS
