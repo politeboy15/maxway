@@ -1,2 +1,2 @@
-# maxway
-Clone of Max Way
+# blog_site
+Simple designed blog site
