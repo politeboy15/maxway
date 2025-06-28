@@ -1,2 +1,2 @@
-# blog_site
-Simple designed blog site
+# MAx way
+Copy of max way site
